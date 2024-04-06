@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Cache local Maven repository
       uses: actions/cache@v2
@@ -18,5 +18,5 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-      - id: run-action
-        uses: maven-flow/manage-versions@main
+    - id: run-action
+      uses: maven-flow/manage-versions@main
