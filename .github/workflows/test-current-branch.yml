@@ -1,0 +1,14 @@
+name: Test current branch
+
+on: [workflow_call, workflow_dispatch]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - id: run-action
+        uses: maven-flow/manage-versions@main
