@@ -53,6 +53,9 @@ jobs:
             exit 1
         fi
 
+    - name: Assert dependency version unchanged
+      run: .github/workflows/assert-dependency-version.sh non-branch-version-pom.xml com.jardoapps.maven-flow dummy-dependency 1.0.0
+
     - name: Run action (branch version)
       id: run-action-branch-version
       uses: maven-flow/manage-versions@main
@@ -71,3 +74,6 @@ jobs:
             echo "Bad version! Expected '1.0.1-SNAPSHOT' but was '$projectVersion'"
             exit 1
         fi
+
+    - name: Assert dependency version changed
+      run: .github/workflows/assert-dependency-version.sh branch-version-pom.xml com.jardoapps.maven-flow dummy-dependency 1.0.1-SNAPSHOT
