@@ -9,11 +9,35 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.14.0</version>
+			<groupId>com.jardoapps.maven-flow</groupId>
+			<artifactId>dummy-dependency</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 
 	</dependencies>
 
+	<profiles>
+
+		<profile>
+			<id>github</id>
+			<distributionManagement>
+				<repository>
+					<id>github</id>
+					<name>GitHub Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/maven-flow/private-repo</url>
+				</repository>
+			</distributionManagement>
+			<repositories>
+				<repository>
+					<id>github</id>
+					<name>GitHub Apache Maven Packages</name>
+					<url>https://maven.pkg.github.com/maven-flow/private-repo</url>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
+			</repositories>
+		</profile>
+
+	</profiles>
 </project>
