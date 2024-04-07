@@ -43,6 +43,7 @@ jobs:
 
     - name: Run action (non-branch version - should fail)
       id: run-action-non-branch-version
+      continue-on-error: true
       uses: maven-flow/manage-versions@main
       env:
         USER: ${{ secrets.USER }}
@@ -53,7 +54,6 @@ jobs:
         pom-file: "non-branch-version-pom.xml"
 
     - name: Assert version check failed
-      if: '!cancelled()' # continue despite run-action-non-branch-version failing, which is correct
       run: |
         if [[ ${{ steps.run-action-non-branch-version.outcome }} == "failure" ]]; then
             echo "Version check failed, which is correct."
@@ -64,7 +64,6 @@ jobs:
 
     - name: Run action (branch version)
       id: run-action-branch-version
-      if: '!cancelled()' # continue despite run-action-non-branch-version failing, which is correct
       uses: maven-flow/manage-versions@main
       env:
         USER: ${{ secrets.USER }}
@@ -75,9 +74,7 @@ jobs:
         pom-file: "branch-version-pom.xml"
 
     - name: Assert version unchanged
-      if: '!cancelled()' # continue despite run-action-non-branch-version failing, which is correct
       run: .github/workflows/assert-project-version.sh branch-version-pom.xml 1.1.0-rc.0-BUG-458-SNAPSHOT
 
     - name: Assert dependency version unchanged
-      if: '!cancelled()' # continue despite run-action-non-branch-version failing, which is correct
       run: .github/workflows/assert-dependency-version.sh branch-version-pom.xml com.jardoapps.maven-flow dummy-dependency 1.1.0-rc.0-BUG-458-SNAPSHOT
