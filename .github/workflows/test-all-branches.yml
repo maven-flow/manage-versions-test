@@ -14,5 +14,6 @@ jobs:
         with:
           workflow: test-current-branch.yml
           repo: maven-flow/manage-versions-test
+          token: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
           wait-for-completion-interval: 10s
           ref: ${{ matrix.branch }}
