@@ -25,6 +25,7 @@ jobs:
         enforce-branch-version: true
         maven-args: "-P github"
         pom-file: "non-branch-version-pom.xml"
+      secrets: inherit
 
     - name: Assert version unchanged
       run: |
@@ -41,6 +42,7 @@ jobs:
         enforce-branch-version: true
         maven-args: "-P github"
         pom-file: "branch-version-pom.xml"
+      secrets: inherit
 
     - name: Assert version changed
       run: |
