@@ -18,14 +18,32 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - id: run-action-non-branch-version
+    - name: Run action (non-branch version)
+      id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
       with:
         enforce-branch-version: true
         pom-file: "non-branch-version-pom.xml"
 
-    - id: run-action-branch-version
+    - name: Assert version unchanged
+      run: |
+        projectVersion=$(mvn -B help:evaluate -Dexpression=project.version -q -DforceStdout --file non-branch-version-pom.xml)
+        if [[ $projectVersion != "1.0.0" ]]; then
+            echo "Bad version! Expected '1.0.0' but was '$projectVersion'"
+            exit 1
+        fi
+
+    - name: Run action (branch version)
+      id: run-action-branch-version
       uses: maven-flow/manage-versions@main
       with:
         enforce-branch-version: true
         pom-file: "branch-version-pom.xml"
+
+    - name: Assert version changed
+      run: |
+        projectVersion=$(mvn -B help:evaluate -Dexpression=project.version -q -DforceStdout --file branch-version-pom.xml)
+        if [[ $projectVersion != "1.0.1-SNAPSHOT" ]]; then
+            echo "Bad version! Expected '1.0.1-SNAPSHOT' but was '$projectVersion'"
+            exit 1
+        fi
