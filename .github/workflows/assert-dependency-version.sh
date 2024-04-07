@@ -5,7 +5,7 @@ groupId=$2
 artifactId=$3
 expectedVersion=$4
 
-dependencies=$(mvn -B -p github dependency:list -DincludeArtifactIds=${artifactId} --file ${pomFile})
+dependencies=$(mvn -B -P github dependency:list -DincludeArtifactIds=${artifactId} --file ${pomFile})
 
 expectedDependency="${groupId}:${artifactId}:jar:${expectedVersion}:"
 
