@@ -1,6 +1,16 @@
 name: Test current branch
 
-on: [workflow_call, workflow_dispatch]
+on:
+
+  workflow_call:
+    secrets:
+      DEPLOY_GITHUB_TOKEN:
+        required: true
+
+  workflow_dispatch:
+    secrets:
+      DEPLOY_GITHUB_TOKEN:
+        required: true
 
 jobs:
   test:
@@ -21,11 +31,12 @@ jobs:
     - name: Run action (non-branch version)
       id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
       with:
         enforce-branch-version: true
         maven-args: "-P github"
         pom-file: "non-branch-version-pom.xml"
-      secrets: inherit
 
     - name: Assert version unchanged
       run: |
@@ -38,11 +49,12 @@ jobs:
     - name: Run action (branch version)
       id: run-action-branch-version
       uses: maven-flow/manage-versions@main
+      env:
+        GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
       with:
         enforce-branch-version: true
         maven-args: "-P github"
         pom-file: "branch-version-pom.xml"
-      secrets: inherit
 
     - name: Assert version changed
       run: |
