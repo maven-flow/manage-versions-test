@@ -4,14 +4,14 @@ on:
 
   workflow_call:
     secrets:
-      GITHUB_USER:
+      USER:
         required: true
       DEPLOY_GITHUB_TOKEN:
         required: true
 
   workflow_dispatch:
     secrets:
-      GITHUB_USER:
+      USER:
         required: true
       DEPLOY_GITHUB_TOKEN:
         required: true
@@ -41,7 +41,7 @@ jobs:
         enforce-branch-version: true
         maven-args: "-P github -s ${GITHUB_WORKSPACE}/.github/workflows/maven-settings.xml"
         pom-file: "non-branch-version-pom.xml"
-        user: ${{ secrets.GITHUB_USER }}
+        user: ${{ secrets.USER }}
         token: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
 
     - name: Assert version unchanged
@@ -59,7 +59,7 @@ jobs:
         enforce-branch-version: true
         maven-args: "-P github -s ${GITHUB_WORKSPACE}/.github/workflows/maven-settings.xml"
         pom-file: "branch-version-pom.xml"
-        user: ${{ secrets.GITHUB_USER }}
+        user: ${{ secrets.USER }}
         token: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
 
     - name: Assert version changed
