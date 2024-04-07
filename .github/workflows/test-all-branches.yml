@@ -1,0 +1,18 @@
+name: Test all branches
+
+on: [workflow_dispatch]
+
+jobs:
+  execute-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: ["main", "develop", "release/v1.1.0", "bugfix/BUG-458"]
+    steps:
+      - id: invoke
+        uses: aurelien-baudet/workflow-dispatch@v2
+        with:
+          workflow: test-current-branch.yml
+          repo: maven-flow/manage-versions-test
+          wait-for-completion-interval: 10s
+          ref: ${{ matrix.branch }}
