@@ -50,8 +50,6 @@ jobs:
     - name: Run action (branch version)
       id: run-action-branch-version
       uses: maven-flow/manage-versions@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
       with:
         enforce-branch-version: true
         maven-args: "-P github"
