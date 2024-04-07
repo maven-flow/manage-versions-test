@@ -2,6 +2,13 @@ name: Test current branch
 
 on:
 
+  push:
+    secrets:
+      USER:
+        required: true
+      DEPLOY_GITHUB_TOKEN:
+        required: true
+
   workflow_call:
     secrets:
       USER:
