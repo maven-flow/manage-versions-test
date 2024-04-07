@@ -14,9 +14,16 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/*pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - id: run-action
+    - id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
+      with:
+        pom-file: "non-branch-version-pom.xml"
+
+    - id: run-action-branch-version
+      uses: maven-flow/manage-versions@main
+      with:
+        pom-file: "branch-version-pom.xml"
