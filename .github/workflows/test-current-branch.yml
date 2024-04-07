@@ -55,7 +55,7 @@ jobs:
     - name: Assert version check failed
       if: '!cancelled()' # continue despite run-action-non-branch-version failing, which is correct
       run: |
-        if [[ steps.run-action-non-branch-version.outputs.status == "failure" ]]; then
+        if [[ ${{ steps.run-action-non-branch-version.outcome }} == "failure" ]]; then
             echo "Version check failed, which is correct."
         else
             echo "ERROR: Version check did not fail, which is incorrect."
