@@ -21,9 +21,11 @@ jobs:
     - id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
       with:
+        enforce-branch-version: true
         pom-file: "non-branch-version-pom.xml"
 
     - id: run-action-branch-version
       uses: maven-flow/manage-versions@main
       with:
+        enforce-branch-version: true
         pom-file: "branch-version-pom.xml"
