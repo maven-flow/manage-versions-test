@@ -1,21 +1,6 @@
 name: Test current branch
 
-on:
-
-  push:
-    secrets:
-      DEPLOY_GITHUB_TOKEN:
-        required: true
-
-  workflow_call:
-    secrets:
-      DEPLOY_GITHUB_TOKEN:
-        required: true
-
-  workflow_dispatch:
-    secrets:
-      DEPLOY_GITHUB_TOKEN:
-        required: true
+on: [push, workflow_call, workflow_dispatch]
 
 jobs:
   test:
@@ -25,7 +10,7 @@ jobs:
 
     - uses: actions/checkout@v4
       with:
-        token: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
+        token: ${{ github.token }}
 
     - name: Cache local Maven repository
       uses: actions/cache@v2
