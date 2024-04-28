@@ -20,16 +20,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
-    - uses: s4u/maven-settings-action@v3.0.0
-      with:
-        servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
-
     - name: Run action (non-branch version)
       id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
       with:
         enforce-branch-version: true
         maven-args: "-P github"
+        maven-servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
         pom-file: "non-branch-version-pom.xml"
 
     - name: Assert version unchanged
@@ -44,6 +41,7 @@ jobs:
       with:
         enforce-branch-version: true
         maven-args: "-P github"
+        maven-servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
         pom-file: "branch-version-pom.xml"
 
     - name: Assert version changed
