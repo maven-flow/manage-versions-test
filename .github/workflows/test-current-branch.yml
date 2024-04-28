@@ -20,6 +20,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
 
+    - uses: s4u/maven-settings-action@v3.0.0
+      with:
+        servers: '[{"id": "github", "username": "${{ github.actor }}", "password": "${{ github.token }}"}]'
+
     - name: Run action (non-branch version)
       id: run-action-non-branch-version
       uses: maven-flow/manage-versions@main
