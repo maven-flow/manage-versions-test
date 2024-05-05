@@ -83,7 +83,7 @@ jobs:
 
     - name: Assert output parameters
       run: |
-        if [[ "${{ steps.run-action-non-branch-version.outputs.changes-made }}" = "false" ]]; then
+        if [[ "${{ steps.run-action-branch-version.outputs.changes-made }}" = "false" ]]; then
           echo "Output changes-made has correct value."
         else
           echo "ERROR: Output changes-made has incorrect value."
