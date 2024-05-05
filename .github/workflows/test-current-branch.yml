@@ -58,6 +58,15 @@ jobs:
     - name: Assert dependency version unchanged
       run: .github/workflows/assert-dependency-version.sh non-branch-version-pom.xml com.jardoapps.maven-flow dummy-dependency 1.1.0-SNAPSHOT
 
+    - name: Assert output parameters
+      run: |
+        if [[ "${{ steps.run-action-non-branch-version.outputs.changes-made }}" = "false" ]]; then
+          echo "Output changes-made has correct value."
+        else
+          echo "ERROR: Output changes-made has incorrect value."
+          exit 1
+        fi
+
     - name: Run action (branch version)
       id: run-action-branch-version
       uses: maven-flow/manage-versions@main
@@ -74,3 +83,12 @@ jobs:
 
     - name: Assert dependency version changed
       run: .github/workflows/assert-dependency-version.sh branch-version-pom.xml com.jardoapps.maven-flow dummy-dependency 1.1.0-SNAPSHOT
+
+    - name: Assert output parameters
+      run: |
+        if [[ "${{ steps.run-action-branch-version.outputs.changes-made }}" = "true" ]]; then
+          echo "Output changes-made has correct value."
+        else
+          echo "ERROR: Output changes-made has incorrect value."
+          exit 1
+        fi
