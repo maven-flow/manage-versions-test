@@ -91,7 +91,7 @@ jobs:
         fi
 
     - name: Run action (non-branch version, do not enforce)
-      id: run-action-non-branch-version
+      id: run-action-non-branch-version-do-not-enforce
       uses: maven-flow/manage-versions@main
       env:
         USER: ${{ secrets.USER }}
@@ -106,7 +106,7 @@ jobs:
 
     - name: Assert output parameters
       run: |
-        if [[ "${{ steps.run-action-branch-version.outputs.changes-made }}" = "false" ]]; then
+        if [[ "${{ steps.run-action-non-branch-version-do-not-enforce.outputs.changes-made }}" = "false" ]]; then
           echo "Output changes-made has correct value."
         else
           echo "ERROR: Output changes-made has incorrect value."
