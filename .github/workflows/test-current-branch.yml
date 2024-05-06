@@ -89,3 +89,26 @@ jobs:
           echo "ERROR: Output changes-made has incorrect value."
           exit 1
         fi
+
+    - name: Run action (non-branch version, do not enforce)
+      id: run-action-non-branch-version
+      uses: maven-flow/manage-versions@main
+      env:
+        USER: ${{ secrets.USER }}
+        TOKEN: ${{ secrets.DEPLOY_GITHUB_TOKEN }}
+      with:
+        enforce-branch-version: false
+        maven-args: "-P github -s ${GITHUB_WORKSPACE}/.github/workflows/maven-settings.xml"
+        pom-file: "non-branch-version-pom.xml"
+
+    - name: Assert version unchanged
+      run: .github/workflows/assert-project-version.sh non-branch-version-pom.xml 1.1.0-rc.0-SNAPSHOT
+
+    - name: Assert output parameters
+      run: |
+        if [[ "${{ steps.run-action-branch-version.outputs.changes-made }}" = "false" ]]; then
+          echo "Output changes-made has correct value."
+        else
+          echo "ERROR: Output changes-made has incorrect value."
+          exit 1
+        fi
