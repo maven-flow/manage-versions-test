@@ -92,8 +92,10 @@ jobs:
 
     - name: Revert changes
       run: |
+        git status
         git reset --hard HEAD
         cat non-branch-version-pom.xml
+        git status
 
     - name: Run action (non-branch version, do not enforce)
       id: run-action-non-branch-version-do-not-enforce
