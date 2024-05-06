@@ -92,10 +92,7 @@ jobs:
 
     - name: Revert changes
       run: |
-        git status
-        git reset --hard HEAD
-        cat non-branch-version-pom.xml
-        git status
+        git reset --hard origin/${{ github.ref_name }}
 
     - name: Run action (non-branch version, do not enforce)
       id: run-action-non-branch-version-do-not-enforce
