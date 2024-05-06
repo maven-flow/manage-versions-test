@@ -91,7 +91,9 @@ jobs:
         fi
 
     - name: Revert changes
-      run: git restore .
+      run: |
+        git restore .
+        cat non-branch-version-pom.xml
 
     - name: Run action (non-branch version, do not enforce)
       id: run-action-non-branch-version-do-not-enforce
