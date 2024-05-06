@@ -90,6 +90,9 @@ jobs:
           exit 1
         fi
 
+    - name: Revert changes
+      run: git restore .
+
     - name: Run action (non-branch version, do not enforce)
       id: run-action-non-branch-version-do-not-enforce
       uses: maven-flow/manage-versions@main
